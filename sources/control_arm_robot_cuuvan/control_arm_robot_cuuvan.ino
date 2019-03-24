@@ -27,7 +27,7 @@ const char TO_BACK = '2'; // pull to back
 const char TO_CATCH = '4'; // Catch something
 const char TO_RELEASE = '6'; // Release
 const char TO_RECORD = 'r'; // Start/Reset recording
-const char TO_REPLAY = 'e'; // Stop recording and start replaying 
+const char TO_REPLAY = 'e'; // Stop recording and start replaying
 const char TO_STOP_REPLAYING = 'x'; // Strop replaying and change servo to first state
 const char ENTER = 13; // Save current state
 const char PAUSE = 'p'; // Pause while replaying
@@ -196,7 +196,7 @@ void replayFromPause(bool m_continue) {
   if (m_continue) {
     i = g_i;
     si = g_si;
-  }else{
+  } else {
     backToFirstStep();
     i = 0;
     si = 1;
