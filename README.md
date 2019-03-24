@@ -8,11 +8,11 @@
 * Le Thanh Binh
 ```
 
-# Programming with Arduino IDE
+## Programming with Arduino IDE
 * `https://www.arduino.cc/en/main/software`
-# Controlling with Tera Term
+## Controlling with Tera Term
 * `references/teraterm-4.102.exe`		
-# Controlling
+## Controlling
 ```
 * TO_LEFT = 'a'; // Spin to left
 * TO_RIGHT = 'd'; // Spin to right
