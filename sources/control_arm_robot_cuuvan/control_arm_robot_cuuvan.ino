@@ -23,9 +23,9 @@
 #define rumble      false
 
 void saveCurrentState();
-void replay();
-void increaseAngle(int ser_index);
-void decreaseAngle(int ser_index);
+void replayFromPause(bool);
+void increaseAngle(int , int = 10);
+void decreaseAngle(int , int = 10);
 void servo_catch();
 void servo_release();
 void gamePadConfig();
@@ -64,7 +64,8 @@ int g_i; // store current servo when stop
 HaServo motors[4]; // Array to stores info of servo motors
 State history[50]; // Store 100 state of arm
 bool playing;
-
+unsigned long last_read_gamepad; // last time read gamepad
+unsigned long time_since_last_read;
 //right now, the library does NOT support hot pluggable controllers, meaning
 //you must always either restart your Arduino after you connect the controller,
 //or call config_gamepad(pins) again after connecting the controller.
@@ -139,7 +140,7 @@ void loop() {
       case ENTER:
         saveCurrentState();
         Serial.print("\n\rSaveCurrentState, total step: ");
-        Serial.print(t_step, "\n"); break;
+        Serial.println(t_step, DEC); break;
       case TO_REPLAY:
         Serial.print("\n\rReplaying...");
         playing = true;
@@ -157,31 +158,32 @@ void loop() {
         break;
     }
   }
-  gamePadControl();
   if (playing) {
     replayFromPause(false);
   }
+  gamePadControl();
 }
 
-void increaseAngle(int ser_index) {
+void increaseAngle(int ser_index, int delay_time = 10) {
   motors[ser_index].angle += (motors[ser_index].angle > motors[ser_index].MAX) ? 0 : 1; //position of servo motor increases by 1 ( anti clockwise) until MAX
   writeServo(ser_index, motors[ser_index].angle); // the servo will move according to position
-  delay(10); //delay for the servo to get to the position
+  delay(delay_time); //delay for the servo to get to the position
 }
 
-void decreaseAngle(int ser_index) {
+void decreaseAngle(int ser_index, int delay_time = 10) {
   motors[ser_index].angle -= (motors[ser_index].angle < motors[ser_index].MIN) ? 0 : 1; //position of servo motor decreases by 1 ( anti clockwise) until MIN
   writeServo(ser_index, motors[ser_index].angle); // the servo will move according to position
-  delay(10); //delay for the servo to get to the position
+  delay(delay_time); //delay for the servo to get to the position
 }
 void servo_catch() { // Catch something
   // Set angle of motors 3 to 0 (close)
   //  writeServo(3, 0);  // write angle
   Serial.print("\n\rCatching");
   while (motors[3].angle > 0) {
-    writeServo(3, motors[3].angle - 1);
     delay(10);
+    writeServo(3, motors[3].angle - 1);
   }
+  Serial.print("\n\rCatched");
 }
 
 void servo_release() {
@@ -221,6 +223,7 @@ void backToFirstStep() {
 }
 bool checkStop() {
   if (Serial.available()) {
+    Serial.print("\n\r Serial available");
     char x = Serial.read();
     if (x == TO_STOP_REPLAYING) {
       playing = false;
@@ -228,6 +231,22 @@ bool checkStop() {
       backToFirstStep();
     }
     if (x == PAUSE) {
+      playing = false;
+      Serial.print("\n\rPaused");
+    }
+  }
+
+  ps2x.read_gamepad(false, vibrate);
+//  Serial.println(ps2x.ButtonDataByte());
+  if (65535 != ps2x.ButtonDataByte()) {
+    if (ps2x.Button(PSB_L2)) {
+      Serial.println("L2 pressed");
+      playing = false;
+      backToFirstStep();
+      Serial.println("Reset to first step");
+    }
+    if (ps2x.Button(PSB_L1)) {
+      Serial.println("L1 pressed");
       playing = false;
       Serial.print("\n\rPaused");
     }
@@ -244,17 +263,20 @@ void replayFromPause(bool m_continue) {
     i = 0;
     si = 1;
   }
-  Serial.print("\n\rStart replaying!");
+  Serial.println("\n\rStart replaying!");
   for (; si < t_step && playing; si++) { // For each step
+
+    Serial.print("Step: ");
+    Serial.println(si, DEC);
     for (; i < 4 && playing; i++) {
-      checkStop();
-      smoothSpin(i, history[si].angles[i]); // Spin each servo motor to angle of current step
+      if (checkStop())
+        smoothSpin(i, history[si].angles[i]); // Spin each servo motor to angle of current step
       g_si = si; g_i = i;
     }
     i = 0;
   }
   // Stop replaying
-  Serial.print("\n\rEnd replaying!\n\r");
+  Serial.print("End replaying!\n\r");
 }
 
 void gamePadConfig() {
@@ -308,9 +330,9 @@ void gamePadConfig() {
 }
 
 void gamePadControl() {
+  delay(10);
   if (type == 2) { //Guitar Hero Controller, Không thể test với nhánh này do không có gamepad này.
     ps2x.read_gamepad(); //read controller
-
     if (ps2x.ButtonPressed(GREEN_FRET))
       Serial.println("Green Fret Pressed");
     if (ps2x.ButtonPressed(RED_FRET))
@@ -342,15 +364,14 @@ void gamePadControl() {
   }
   else { //DualShock Controller, Loại gamepad thầy đưa cho là loại này
     ps2x.read_gamepad(false, vibrate); //read controller and set large motor to spin at 'vibrate' speed
-
     if (ps2x.Button(PSB_PAD_UP)) {     //will be TRUE as long as button is pressed
       increaseAngle(1);
     }
     if (ps2x.Button(PSB_PAD_RIGHT)) {
-      decreaseAngle(0);
+      decreaseAngle(0, 2);
     }
     if (ps2x.Button(PSB_PAD_LEFT)) {
-      increaseAngle(0);
+      increaseAngle(0, 2);
     }
     if (ps2x.Button(PSB_PAD_DOWN)) {
       decreaseAngle(1);
@@ -361,36 +382,34 @@ void gamePadControl() {
     if (ps2x.Button(PSB_CROSS)) {
       decreaseAngle(2);
     }
-    if (ps2x.ButtonPressed(PSB_SQUARE)) {
-      Serial.print("\n\rButtonPressed(PSB_SQUARE)");
+    if (!playing && ps2x.ButtonPressed(PSB_SQUARE)) {
+      Serial.print("\n\rButtonPressed PSB_SQUARE");
       servo_catch();
     }
-    if (ps2x.ButtonPressed(PSB_CIRCLE)) {
-      Serial.print("\n\rButtonPressed(PSB_CIRCLE)");
+    if (!playing && ps2x.ButtonPressed(PSB_CIRCLE)) {
+      Serial.print("\n\rButtonPressed PSB_CIRCLE ");
       servo_release();
     }
-    if (ps2x.NewButtonState()) {
-      if (ps2x.ButtonReleased(PSB_L2)) {
-        playing = false;
-        backToFirstStep();
-        Serial.println("Reset to first step1");
-      }
-      if (ps2x.ButtonPressed(PSB_R2)) {
-        //pass
-        Serial.print("\n\rReplaying1...");
-        playing = true;
-      }
-      if (ps2x.ButtonPressed(PSB_START)) {
-        t_step = 0;
-        saveCurrentState();
-        Serial.print("\n\rReset recording1...\n");
-      }
-      if (ps2x.ButtonPressed(PSB_SELECT)) {
-        saveCurrentState();
-        Serial.print("\n\rSaveCurrentState, total step1: ");
-        Serial.print(t_step, "\n");
-      }
+
+    if (!playing && ps2x.ButtonPressed(PSB_SELECT)) {
+      saveCurrentState();
+      Serial.print("\n\rSaveCurrentState, total step: ");
+      Serial.println(t_step, DEC);
+    }
+    if (ps2x.ButtonPressed(PSB_R2)) {
+      Serial.println("R2 pressed");
+      Serial.print("\n\rReplaying...");
+      playing = true;
+    }
+    if (ps2x.ButtonPressed(PSB_R1)) {
+      Serial.print("\n\rContinue");
+      playing = true;
+      replayFromPause(true);
+    }
+    if (!playing && ps2x.ButtonPressed(PSB_START)) {
+      t_step = 0;
+      saveCurrentState();
+      Serial.print("\n\rReset recording...\n");
     }
   }
-  delay(15);
 }
