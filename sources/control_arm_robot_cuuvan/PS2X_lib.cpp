@@ -309,6 +309,7 @@ void PS2X::sendCommandString(byte string[], byte len) {
 #endif
 }
 
+
 /****************************************************************************************/
 byte PS2X::readType() {
 /*
@@ -327,6 +328,7 @@ byte PS2X::readType() {
   for (int i = 0; i<9; i++) {
     temp[i] = _gamepad_shiftinout(type_read[i]);
   }
+
 
   sendCommandString(exit_config, sizeof(exit_config));
 
