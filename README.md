@@ -7,7 +7,7 @@
 ## Group 01
 * Hoang Minh Quang
 * Le Cong Hau (HaJaU)
-* Vu Hong Son
+* Vu Hong Son (Parkboyoung)
 * Le Thanh Binh
 
 
