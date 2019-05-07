@@ -18,7 +18,7 @@
 ## Controlling
 * `TO_LEFT` = `a` or `PSB_PAD_LEFT`; // Spin to left
 * `TO_RIGHT` = `d`  or `PSB_PAD_RIGHT`; // Spin to right
-* `TO_UP` = `w` or `PSB_PAD_UP`; // lift up
+* `TO_UP` = `w` or `PSB_PAD_UP`;        // lift up
 * `TO_DOWN` = `s` or `PSB_PAD_DOWN`; // let down
 * `TO_FRONT` = `8` or `PSB_TRIANGLE`; // push to front
 * `TO_BACK` = `2` or `PSB_CROSS`; // pull to back
