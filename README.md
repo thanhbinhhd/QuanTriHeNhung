@@ -16,7 +16,7 @@
 ## Controlling with Tera Term
 * `./references/teraterm-4.102.exe`		
 ## Controlling
-* `TO_LEFT` = `a` or `PSB_PAD_LEFT`; // Spin to left
+* `TO_LEFT` = `a` or `PSB_PAD_LEFT`;    // Spin to left
 * `TO_RIGHT` = `d`  or `PSB_PAD_RIGHT`; // Spin to right
 * `TO_UP` = `w` or `PSB_PAD_UP`; // lift up
 * `TO_DOWN` = `s` or `PSB_PAD_DOWN`; // let down
