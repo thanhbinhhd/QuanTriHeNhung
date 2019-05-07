@@ -1,6 +1,9 @@
 # Quản trị dự án hệ nhúng theo chuẩn kỹ năng ITSS
 ![Arm](https://gloimg.gbtcdn.com/soa/gb/pdm-product-pic/Electronic/2018/12/20/goods_thumb-v16/20181220155903_34827.jpg)
 
+# Đề tài
+* Điều khiển cách tay robot bằng ps2 qua kết nối Bluetooth
+
 ## Group 01
 * Hoang Minh Quang
 * Le Cong Hau
