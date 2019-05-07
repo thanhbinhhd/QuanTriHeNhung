@@ -387,7 +387,7 @@ void gamePadControl() {
       servo_catch();
     }
     if (!playing && ps2x.ButtonPressed(PSB_CIRCLE)) {
-      Serial.print("\n\rButtonPressed PSB_CIRCLE ");
+      Serial.print("\n\rButtonPressed PSB_CIRCLE");
       servo_release();
     }
 
