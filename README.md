@@ -22,8 +22,8 @@
 * `TO_DOWN` = `s` or `PSB_PAD_DOWN`; // let down
 * `TO_FRONT` = `8` or `PSB_TRIANGLE`; // push to front
 * `TO_BACK` = `2` or `PSB_CROSS`; // pull to back
-* `TO_CATCH` = `4` or `PSB_SQUARE`;     // Catch something
-* `TO_RELEASE` = `6` or `PSB_CIRCLE`; // Release
+* `TO_CATCH` = `4` or `PSB_SQUARE`; // Catch something
+* `TO_RELEASE` = `6` or `PSB_CIRCLE`;   // Release
 * `TO_RECORD` = `r` or `PSB_START`; // Start/Reset recording
 * `ENTER` = `13` or `PSB_SELECT`; // Save current state
 * `TO_REPLAY` = `e` or `PSB_R2`; // Stop recording and start replaying 
