@@ -28,5 +28,5 @@
 * `ENTER` = `13` or `PSB_SELECT`;       // Save current state
 * `TO_REPLAY` = `e` or `PSB_R2`;        // Stop recording and start replaying 
 * `TO_STOP_REPLAYING` = `x` or `PSB_L2`; // Strop replaying and change servo to first state
-* `PAUSE` = `p` or `PSB_L1`; // Pause while replaying
+* `PAUSE` = `p` or `PSB_L1`;             // Pause while replaying
 * `CONTINUE` = `c` or `PSB_R1`; // Continue when paused
