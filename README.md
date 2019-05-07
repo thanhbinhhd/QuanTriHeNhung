@@ -8,7 +8,7 @@
 * Hoang Minh Quang
 * Le Cong Hau (HaJaU)
 * Vu Hong Son (Parkboyoung)
-* Le Thanh Binh
+* Le Thanh Binh (ThanhBinhbd)
 
 
 ## Programming with Arduino IDE
