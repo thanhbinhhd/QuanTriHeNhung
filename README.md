@@ -24,7 +24,7 @@
 * `TO_BACK` = `2` or `PSB_CROSS`;       // pull to back
 * `TO_CATCH` = `4` or `PSB_SQUARE`;     // Catch something
 * `TO_RELEASE` = `6` or `PSB_CIRCLE`;   // Release
-* `TO_RECORD` = `r` or `PSB_START`; // Start/Reset recording
+* `TO_RECORD` = `r` or `PSB_START`;     // Start/Reset recording
 * `ENTER` = `13` or `PSB_SELECT`; // Save current state
 * `TO_REPLAY` = `e` or `PSB_R2`; // Stop recording and start replaying 
 * `TO_STOP_REPLAYING` = `x` or `PSB_L2`; // Strop replaying and change servo to first state
