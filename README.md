@@ -5,10 +5,10 @@
 * Điều khiển cách tay robot bằng ps2 qua kết nối Bluetooth
 
 ## Group 01
-* Hoang Minh Quang
+* Hoang Minh Quang (minhquang4334)
 * Le Cong Hau (HaJaU)
 * Vu Hong Son (Parkboyoung)
-* Le Thanh Binh (ThanhBinhbd)
+* Le Thanh Binh
 
 
 ## Programming with Arduino IDE
