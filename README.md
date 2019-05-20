@@ -2,7 +2,7 @@
 ![Arm](https://gloimg.gbtcdn.com/soa/gb/pdm-product-pic/Electronic/2018/12/20/goods_thumb-v16/20181220155903_34827.jpg)
 
 ## Group 01
-* Hoang Minh Quang
+* Hoang Minh Quang (C)
 * Le Cong Hau
 * Vu Hong Son
 * Le Thanh Binh
@@ -27,3 +27,5 @@
 * `TO_STOP_REPLAYING` = `x` or `PSB_L2`; // Strop replaying and change servo to first state
 * `PAUSE` = `p` or `PSB_L1`; // Pause while replaying
 * `CONTINUE` = `c` or `PSB_R1`; // Continue when paused
+
+## References
