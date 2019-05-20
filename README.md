@@ -5,15 +5,9 @@
 * Điều khiển cách tay robot bằng ps2 qua kết nối Bluetooth
 
 ## Group 01
-<<<<<<< HEAD
-* Hoang Minh Quang (C)
-* Le Cong Hau
-* Vu Hong Son
-=======
 * Hoang Minh Quang (minhquang4334)
 * Le Cong Hau (HaJaU)
 * Vu Hong Son (Parkboyoung)
->>>>>>> 0c7f2898943baf89f9332f6caf9f05c9bd7c07ae
 * Le Thanh Binh
 
 
@@ -34,12 +28,8 @@
 * `ENTER` = `13` or `PSB_SELECT`;       // Save current state
 * `TO_REPLAY` = `e` or `PSB_R2`;        // Stop recording and start replaying 
 * `TO_STOP_REPLAYING` = `x` or `PSB_L2`; // Strop replaying and change servo to first state
-<<<<<<< HEAD
-* `PAUSE` = `p` or `PSB_L1`; // Pause while replaying
-* `CONTINUE` = `c` or `PSB_R1`; // Continue when paused
 
-## References
-=======
 * `PAUSE` = `p` or `PSB_L1`;             // Pause while replaying
 * `CONTINUE` = `c` or `PSB_R1`;          // Continue when paused
->>>>>>> 0c7f2898943baf89f9332f6caf9f05c9bd7c07ae
+
+## References
